@@ -1,0 +1,35 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - frontend  # Triggers when pushing to 'frontend' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend  # Adjust if your frontend is in another folder
+
+      - name: Build project
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Your Vercel token from GitHub Secrets
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} # Your Vercel Org ID
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} # Your Vercel Project ID
+          working-directory: ./frontend
