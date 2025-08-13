@@ -24,4 +24,5 @@ ENV PORT=${PORT}
 EXPOSE ${PORT}
 
 # Stage 7: Define the command to run your app (bind to Render's PORT)
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
+# Use shell form so ${PORT} is expanded by the shell. Include proxy headers for Render.
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT} --proxy-headers --forwarded-allow-ips "*"
