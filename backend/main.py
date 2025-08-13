@@ -54,6 +54,8 @@ class WorkflowResponse(WorkflowCreate):
 
 # ------------------ FastAPI App ------------------
 app = FastAPI()
+
+# Health check (for Render)
 @app.get("/health", status_code=200)
 def health_check():
     return {"status": "ok"}
@@ -66,11 +68,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Health check (for Render)
-@app.get("/health", status_code=200)
-def health_check():
-    return {"status": "ok"}
 
 # Dependency
 def get_db():
