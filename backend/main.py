@@ -54,6 +54,9 @@ class WorkflowResponse(WorkflowCreate):
 
 # ------------------ FastAPI App ------------------
 app = FastAPI()
+@app.get("/health", status_code=200)
+def health_check():
+    return {"status": "ok"}
 
 # Allow frontend calls
 app.add_middleware(
