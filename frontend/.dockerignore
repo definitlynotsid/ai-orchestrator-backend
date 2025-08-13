@@ -1,0 +1,8 @@
+# Ignore the local dependencies folder
+node_modules
+
+# Ignore the Next.js build cache
+.next
+
+# Ignore local environment variables
+.env.local

@@ -1,0 +1,19 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+    image: sidx4rt/ai-orchestrator-backend:latest
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+    image: sidx4rt/ai-orchestrator-frontend:latest
+    ports:
+      - "3000:3000"
+
+
+
+
