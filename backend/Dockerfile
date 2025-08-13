@@ -18,11 +18,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Stage 5: Copy the rest of your application code into the container
 COPY . .
 
-# Stage 6: Expose the port the app runs on
-# This tells Docker that the application inside the container will be listening on port 8000.
-EXPOSE 8000
+# Stage 6: Expose the port the app runs on (Render provides PORT at runtime)
+ARG PORT=8000
+ENV PORT=${PORT}
+EXPOSE ${PORT}
 
-# Stage 7: Define the command to run your app
-# This is the command that will be run when the container starts.
-# It's the same as our `uvicorn` command but formatted for production.
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Stage 7: Define the command to run your app (bind to Render's PORT)
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
